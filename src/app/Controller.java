@@ -3,16 +3,13 @@ package app;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import model.Cidade;
+import model.Distancia;
 
 import java.util.ArrayList;
 
 public class Controller {
 
-    ArrayList<Cidade> cidades = new ArrayList<Cidade>();
-
-    @FXML
-    TextField nomeCidade;
+    ArrayList<Distancia> distancias = new ArrayList<Distancia>();
 
     @FXML
     TextField cidadeInicial;
@@ -27,12 +24,8 @@ public class Controller {
     TextArea console;
 
     @FXML
-    public void newCidade() {
-
-    }
-
-    @FXML
     public void newDistancia() {
-
+        Distancia distancia = new Distancia(cidadeInicial.toString(), cidadeInicial.toString(), Integer.valueOf(this.distancia.toString()));
+        distancias.add(distancia);
     }
 }

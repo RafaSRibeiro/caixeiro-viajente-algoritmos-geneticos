@@ -28,26 +28,11 @@
                <children>
                   <TabPane prefHeight="295.0" prefWidth="344.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab text="Cidade">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <VBox prefHeight="303.0" prefWidth="322.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome da Cidade" />
-                                          <TextField fx:id="nomeCidade" prefHeight="25.0" prefWidth="287.0" />
-                                          <Button mnemonicParsing="false" onAction="#newCidade" text="Cadastrar" />
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </Tab>
                       <Tab text="Distancias">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox prefHeight="303.0" prefWidth="322.0">
+                                    <VBox prefHeight="157.0" prefWidth="322.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cidade Inicial" />
                                           <TextField fx:id="cidadeInicial" prefHeight="25.0" prefWidth="287.0" />
