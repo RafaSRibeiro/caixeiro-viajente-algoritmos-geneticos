@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -26,7 +27,7 @@
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TabPane prefHeight="295.0" prefWidth="344.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane prefHeight="478.0" prefWidth="402.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab text="Distancias">
                         <content>
@@ -34,22 +35,56 @@
                                  <children>
                                     <VBox prefHeight="157.0" prefWidth="322.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cidade Inicial" />
-                                          <TextField fx:id="cidadeInicial" prefHeight="25.0" prefWidth="287.0" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cidade Final" />
-                                          <TextField fx:id="cidadeFinal" prefHeight="25.0" prefWidth="287.0" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distancia" />
-                                          <TextField fx:id="distancia" prefHeight="25.0" prefWidth="287.0" />
-                                          <Button mnemonicParsing="false" onAction="#newDistancia" text="Cadastrar" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cidade Inicial">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <TextField fx:id="cidadeInicial" prefHeight="25.0" prefWidth="287.0">
+                                             <VBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cidade Final">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <TextField fx:id="cidadeFinal" prefHeight="25.0" prefWidth="287.0">
+                                             <VBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distancia">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <TextField fx:id="distancia" prefHeight="25.0" prefWidth="287.0">
+                                             <VBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <Button mnemonicParsing="false" onAction="#newDistancia" text="Cadastrar">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </Button>
                                        </children>
                                     </VBox>
+                                    <ListView fx:id="listView" layoutX="14.0" layoutY="202.0" prefHeight="231.0" prefWidth="321.0" />
                                  </children>
                               </AnchorPane>
                         </content>
                       </Tab>
                     </tabs>
                   </TabPane>
-                  <TextArea fx:id="console" prefHeight="477.0" prefWidth="367.0" />
+                  <VBox prefHeight="478.0" prefWidth="395.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#calculaMenorDistancia" text="Calcula" />
+                        <TextArea fx:id="console" prefHeight="453.0" prefWidth="251.0" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </center>
