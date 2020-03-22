@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class BaseDados {
 
-    HashMap<String, Double> distancias = new HashMap<String, Double>();
+    public HashMap<String, Double> distancias = new HashMap<String, Double>();
 
-    HashMap<String, Cidade> cidades = new HashMap<String, Cidade>();
+    public HashMap<String, Cidade> cidades = new HashMap<String, Cidade>();
 
     String possiveis = new String("");
 
@@ -70,6 +70,8 @@ public class BaseDados {
     }
 
     public void addDistancia(String cidadeInicial, String cidadeFinal, double distancia) {
+        addCidade(cidadeInicial);
+        addCidade(cidadeFinal);
         distancias.put(getIniciaisCidade(cidades.get(cidadeInicial), cidades.get(cidadeFinal)), distancia);
     }
 
@@ -80,13 +82,14 @@ public class BaseDados {
 
         quantidadeCidades = cidades.size();
         possiveis = "";
-        for(Map.Entry<String, Cidade> entry : cidades.entrySet()) {
+        for (Map.Entry<String, Cidade> entry : cidades.entrySet()) {
             possiveis += entry.getValue().sigla;
         }
+
     }
 
-    public String getIniciaisCidade(Cidade a, Cidade b) {
-        return a.sigla + b.sigla;
+    public String getIniciaisCidade(Cidade cidadeInicial, Cidade cidadeFinal) {
+        return cidadeInicial.sigla + cidadeFinal.sigla;
     }
 
     public Double getDistanciaByCromossomo(String cromossomo) {

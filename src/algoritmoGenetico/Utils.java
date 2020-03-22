@@ -9,12 +9,12 @@ public class Utils {
         return r.nextInt(v);
     }
 
-    public static <T> boolean contain(T lst[], T st) {
-        int i, max = lst.length;
+    public static <T> boolean contain(T individuos[], T individuo) {
+        int i, max = individuos.length;
         T aux;
         for (i = 0; i < max; i++) {
-            aux = lst[i];
-            if (aux != null && aux.equals(st)) {
+            aux = individuos[i];
+            if (aux != null && aux.equals(individuo)) {
                 return true;
             }
         }

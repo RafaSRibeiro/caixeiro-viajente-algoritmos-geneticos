@@ -3,11 +3,13 @@ package app;
 import algoritmoGenetico.AlgoritmoGenetico;
 import algoritmoGenetico.BaseDados;
 import algoritmoGenetico.Individuo;
-import algoritmoGenetico.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+
+import javax.swing.*;
+import java.util.Map;
 
 public class Controller {
 
@@ -23,6 +25,12 @@ public class Controller {
     TextField distancia;
 
     @FXML
+    TextField epocas;
+
+    @FXML
+    TextField populacaoInicial;
+
+    @FXML
     TextArea console;
 
     @FXML
@@ -34,22 +42,39 @@ public class Controller {
 
     @FXML
     public void newDistancia() {
-
+        baseDados.addDistancia(cidadeInicial.getText(), cidadeFinal.getText(), Integer.valueOf(distancia.getText()));
+        updateListView();
     }
 
     @FXML
     public void calculaMenorDistancia() {
-        AlgoritmoGenetico algoritmoGenetico = new AlgoritmoGenetico(baseDados);
+        AlgoritmoGenetico algoritmoGenetico = new AlgoritmoGenetico(baseDados, Integer.valueOf(populacaoInicial.getText()));
         Individuo individuo;
         int epocas = 0;
 
-        while(true){
-            individuo = algoritmoGenetico.getIndividuoMaisApto(algoritmoGenetico.populacao);
-            algoritmoGenetico.proxima_geracao();
-            epocas++;
-            if(epocas == 50)break;
+        if (algoritmoGenetico.populacao.length == 0) {
+            showModal("Sem cidades cadastradas");
+            return;
         }
-        console.appendText("Menor Percurso: " + individuo.get_distancia_percurso(algoritmoGenetico.baseDados) + "\n");
-        console.appendText("Melhor Caminho: " + String.join(" ", individuo.genes) + "\n");
+
+        while (true) {
+            individuo = algoritmoGenetico.getIndividuoMaisApto(algoritmoGenetico.populacao);
+            algoritmoGenetico.geraProximaGeracao();
+            epocas++;
+            if (epocas == Integer.valueOf(this.epocas.getText())) break;
+        }
+        console.appendText("Menor Percurso: " + individuo.getDistanciaPercurso(algoritmoGenetico.baseDados) + "\n");
+        console.appendText("Melhor Caminho: " + String.join(" ", individuo.cromossomo) + "\n");
+    }
+
+    private void updateListView() {
+        listView.getItems().clear();
+        for (Map.Entry<String, Double> entry : baseDados.distancias.entrySet()) {
+            listView.getItems().add(entry.getKey() + " - " + entry.getValue());
+        }
+    }
+
+    public void showModal(String mensagem) {
+        JOptionPane.showMessageDialog(null, mensagem);
     }
 }

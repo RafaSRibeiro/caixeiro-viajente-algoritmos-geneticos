@@ -6,79 +6,72 @@ public class AlgoritmoGenetico {
 
     public BaseDados baseDados;
 
-    int quantidade = 40;
+    int quantidadePopulacaoInicial = 40;
 
-    public AlgoritmoGenetico(BaseDados baseDados) {
-        populacao = new Individuo[quantidade];
+    public AlgoritmoGenetico(BaseDados baseDados, int quantidadePopulacaoInicial) {
+        this.quantidadePopulacaoInicial = quantidadePopulacaoInicial;
+        populacao = new Individuo[quantidadePopulacaoInicial];
         this.baseDados = baseDados;
         int i;
-        for (i = 0; i < quantidade; i++) {
+        for (i = 0; i < quantidadePopulacaoInicial; i++) {
             populacao[i] = new Individuo(baseDados);
         }
     }
 
-    public Individuo getIndividuoMaisApto(Individuo lst[]) {
-        return lst[getIndiceMaisApto(lst)];
+    public Individuo getIndividuoMaisApto(Individuo individuos[]) {
+        return individuos[getIndiceMaisApto(individuos)];
     }
 
-    public int getIndiceMaisApto(Individuo lst[]) {
-        Double menor = 0.0, aux;
-        int local_menor = -1, i, len = lst.length;
-        Individuo tmp;
+    public int getIndiceMaisApto(Individuo individuos[]) {
+        Double menorDistancia = 0.0, distanciaAuxiliar;
+        int indiceIndividuoMenorDistancia = -1, i, len = individuos.length;
+        Individuo individuo;
 
         for (i = 0; i < len; i++) {
-            tmp = lst[i];
-            if (tmp == null) continue;
-            if (!tmp.isGeneExists()) {
-                aux = tmp.get_distancia_percurso(baseDados);
-                if (local_menor == -1 || aux < menor) {
-                    local_menor = i;
-                    menor = aux;
+            individuo = individuos[i];
+            if (individuo == null)
+                continue;
+            if (!individuo.isGeneExists()) {
+                distanciaAuxiliar = individuo.getDistanciaPercurso(baseDados);
+                if (indiceIndividuoMenorDistancia == -1 || distanciaAuxiliar < menorDistancia) {
+                    indiceIndividuoMenorDistancia = i;
+                    menorDistancia = distanciaAuxiliar;
                 }
             }
         }
-        assert local_menor != -1;
-
-        return local_menor;
-
+        assert indiceIndividuoMenorDistancia != -1;
+        return indiceIndividuoMenorDistancia;
     }
 
     public Individuo[] torneio() {
-        int qnt_torneio = 9;
-        Individuo to_return[] = new Individuo[2];
-        Individuo lst[] = new Individuo[qnt_torneio];
+        int quantidadeIndividuosTorneio = 9;
+        Individuo individuosRetorno[] = new Individuo[2];
+        Individuo individuos[] = new Individuo[quantidadeIndividuosTorneio];
 
         int i;
-        // seleciona qnt_torneio Individuos aleatoriamente
-        for (i = 0; i < qnt_torneio; i++) {
-            lst[i] = populacao[Utils.rand(quantidade)];
+        for (i = 0; i < quantidadeIndividuosTorneio; i++) {
+            individuos[i] = populacao[Utils.rand(quantidadePopulacaoInicial)];
         }
 
-        // seleciona os dois mais aptos para retornar
+        int indiceIndividuoRetorno;
+        indiceIndividuoRetorno = getIndiceMaisApto(individuos);
+        individuosRetorno[0] = populacao[indiceIndividuoRetorno];
+        individuos[indiceIndividuoRetorno] = null;
 
-        int i1;
-        i1 = getIndiceMaisApto(lst);
-        to_return[0] = populacao[i1];
-        lst[i1] = null;
+        individuosRetorno[1] = getIndividuoMaisApto(individuos);
 
-        to_return[1] = getIndividuoMaisApto(lst);
-
-        return to_return;
+        return individuosRetorno;
 
     }
 
-    public void proxima_geracao() {
-        Individuo prox_populacao[] = new Individuo[quantidade];
+    public void geraProximaGeracao() {
+        Individuo proximaPopulacao[] = new Individuo[quantidadePopulacaoInicial];
         int i;
-        // preserva o mais apto
-        prox_populacao[0] = getIndividuoMaisApto(populacao);
-
-        for (i = 1; i < quantidade; i++) {
-            prox_populacao[i] = new Individuo(torneio(), baseDados);
+        proximaPopulacao[0] = getIndividuoMaisApto(populacao);
+        for (i = 1; i < quantidadePopulacaoInicial; i++) {
+            proximaPopulacao[i] = new Individuo(torneio(), baseDados);
         }
-
-        populacao = prox_populacao;
-
+        populacao = proximaPopulacao;
     }
 
 

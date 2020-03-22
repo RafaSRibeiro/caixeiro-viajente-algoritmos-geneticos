@@ -10,7 +10,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="579.0" prefWidth="875.0" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -81,8 +81,16 @@
                   </TabPane>
                   <VBox prefHeight="478.0" prefWidth="395.0">
                      <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Epocas" />
+                              <TextField fx:id="epocas" prefHeight="25.0" prefWidth="287.0" text="50" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Populaçao Inicial" />
+                              <TextField fx:id="populacaoInicial" prefHeight="25.0" prefWidth="287.0" text="40" />
+                           </children>
+                        </VBox>
                         <Button mnemonicParsing="false" onAction="#calculaMenorDistancia" text="Calcula" />
-                        <TextArea fx:id="console" prefHeight="453.0" prefWidth="251.0" />
+                        <TextArea fx:id="console" prefHeight="496.0" prefWidth="411.0" />
                      </children>
                   </VBox>
                </children>
