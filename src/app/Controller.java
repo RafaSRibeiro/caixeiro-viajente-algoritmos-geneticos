@@ -58,12 +58,12 @@ public class Controller {
 
         int epocas = 0;
         while (true) {
-            individuo = algoritmoGenetico.getIndividuoMaisAptos(1)[0];
             algoritmoGenetico.geraProximaGeracao();
             epocas++;
             if (epocas == Integer.valueOf(this.epocas.getText())) break;
         }
-        console.appendText("Menor Percurso: " + individuo.getDistanciaPercurso(algoritmoGenetico.baseDados) + "\n");
+        individuo = algoritmoGenetico.getIndividuoMaisAptos(1)[0];
+        console.appendText("Menor Percurso: " + individuo.fitness + "\n");
         console.appendText("Melhor Caminho: " + String.join(" ", individuo.cromossomo) + "\n");
     }
 

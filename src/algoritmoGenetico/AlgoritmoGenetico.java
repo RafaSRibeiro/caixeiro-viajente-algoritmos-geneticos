@@ -50,28 +50,13 @@ public class AlgoritmoGenetico {
         return novaPopulacao;
     }
 
-    public Individuo[] torneio() {
-        int quantidadeIndividuosTorneio = 9;
-        Individuo individuosRetorno[] = new Individuo[2];
-        Individuo individuos[] = new Individuo[quantidadeIndividuosTorneio];
-
-        int i;
-        for (i = 0; i < quantidadeIndividuosTorneio; i++) {
-            individuos[i] = populacao[Utils.rand(quantidadePopulacaoInicial)];
-        }
-
-        int indiceIndividuoRetorno;
-        individuosRetorno = getIndividuoMaisAptos(2);
-        return individuosRetorno;
-    }
-
     public void geraProximaGeracao() {
         Individuo proximaPopulacao[] = new Individuo[quantidadePopulacaoInicial];
-        int i;
-        proximaPopulacao = getIndividuoMaisAptos(1);
-        for (i = 1; i < quantidadePopulacaoInicial; i++) {
-            proximaPopulacao[i] = new Individuo(torneio(), baseDados);
-        }
+        Individuo populacaoMaisApta[] = getIndividuoMaisAptos(quantidadePopulacaoInicial / 2);
+        System.arraycopy(populacaoMaisApta, 0, proximaPopulacao, 0, populacaoMaisApta.length);
+
+        Individuo populacaoMutacao[] = Mutacao.mutacao(baseDados, populacaoMaisApta);
+        System.arraycopy(populacaoMutacao, 0, proximaPopulacao, populacaoMaisApta.length, populacaoMutacao.length);
         populacao = proximaPopulacao;
     }
 

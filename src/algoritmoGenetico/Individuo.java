@@ -28,13 +28,11 @@ public class Individuo {
         fitness = getDistanciaPercurso(baseDados);
     }
 
-    public Individuo(Individuo individuos[], BaseDados baseDados) {
-        Individuo pai = individuos[0];
-        Individuo mae = individuos[1];
-        assert pai.cromossomo.length == mae.cromossomo.length;
-        tamanhoGenes = pai.tamanhoGenes;
-//        cromossomo = this.crossover.run(pai, mae);
-//        mutacao();
+    public Individuo(BaseDados baseDados, String cromossomo[]) {
+        int quantidadeCidades = baseDados.quantidadeCidades;
+        tamanhoGenes = quantidadeCidades;
+        this.cromossomo = cromossomo;
+        fitness = getDistanciaPercurso(baseDados);
     }
 
     public Double getDistanciaPercurso(BaseDados baseDados) {
@@ -61,15 +59,5 @@ public class Individuo {
         return false;
     }
 
-    public void mutacao() {
-        int local1 = Utils.rand(tamanhoGenes);
-        int local2 = Utils.rand(tamanhoGenes);
-        while (local2 == local1) {
-            local2 = Utils.rand(tamanhoGenes);
-        }
-        String tmp = cromossomo[local1];
-        cromossomo[local1] = cromossomo[local2];
-        cromossomo[local2] = tmp;
-    }
 
 }
