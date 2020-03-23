@@ -1,10 +1,14 @@
 package algoritmoGenetico;
 
+import java.util.Arrays;
+
 public class Individuo {
 
     public String cromossomo[];
 
-    private int tamanhoGenes;
+    public Double fitness;
+
+    public int tamanhoGenes;
 
     public Individuo(BaseDados baseDados) {
         int quantidadeCidades = baseDados.quantidadeCidades;
@@ -21,6 +25,7 @@ public class Individuo {
             }
             cromossomo[i] = gene;
         }
+        fitness = getDistanciaPercurso(baseDados);
     }
 
     public Individuo(Individuo individuos[], BaseDados baseDados) {
@@ -28,8 +33,8 @@ public class Individuo {
         Individuo mae = individuos[1];
         assert pai.cromossomo.length == mae.cromossomo.length;
         tamanhoGenes = pai.tamanhoGenes;
-        cromossomo = crossover(pai, mae);
-        mutacao(baseDados);
+//        cromossomo = this.crossover.run(pai, mae);
+//        mutacao();
     }
 
     public Double getDistanciaPercurso(BaseDados baseDados) {
@@ -56,7 +61,7 @@ public class Individuo {
         return false;
     }
 
-    public void mutacao(BaseDados baseDados) {
+    public void mutacao() {
         int local1 = Utils.rand(tamanhoGenes);
         int local2 = Utils.rand(tamanhoGenes);
         while (local2 == local1) {
@@ -65,83 +70,6 @@ public class Individuo {
         String tmp = cromossomo[local1];
         cromossomo[local1] = cromossomo[local2];
         cromossomo[local2] = tmp;
-    }
-
-    private String[] crossover(Individuo individuoA, Individuo individuoB) {
-//        String[] child = new String[individuoA.cromossomo.length];
-//        Double crossPoint = Math.random() * individuoA.cromossomo.length;//make a crossover point
-//        for (int i = 0; i < individuoA.cromossomo.length; ++i) {
-//            if (i < crossPoint)
-//                child[i] = individuoA.cromossomo[i];
-//            else
-//                child[i] = individuoB.cromossomo[i];
-//        }
-//        return child;
-
-        String lst[] = new String[individuoA.tamanhoGenes];
-        int i, max = lst.length;
-        int rand_point = Utils.rand(tamanhoGenes);
-
-        int cout_pais = 2;
-        String tmp;
-        int j;
-        for (i = 0; i < max; i += 2) {
-            if (cout_pais % 2 == 0) {// pai
-                tmp = individuoA.cromossomo[i];
-                j = i;
-                while (Utils.contain(lst, tmp)) {// pega o da mae
-                    tmp = individuoB.cromossomo[j];
-                    if (j + 1 < max) {
-                        j++;
-                    } else {
-                        j = 0;
-                    }
-
-                }
-
-                lst[i] = tmp;
-                tmp = individuoA.cromossomo[i + 1];
-                j = i + 1;
-                while (Utils.contain(lst, tmp)) {
-                    tmp = individuoB.cromossomo[j];
-                    if (j + 1 < max) {
-                        j++;
-                    } else {
-                        j = 0;
-                    }
-
-                }
-                lst[i + 1] = tmp;
-
-            } else {// mae
-                tmp = individuoB.cromossomo[i];
-                j = i;
-                while (Utils.contain(lst, tmp)) {// pega o da pai
-                    tmp = individuoA.cromossomo[j];
-                    if (j + 1 < max) {
-                        j++;
-                    } else {
-                        j = 0;
-                    }
-                }
-                lst[i] = tmp;
-
-                tmp = individuoB.cromossomo[i + 1];
-                j = i + 1;
-                while (Utils.contain(lst, tmp)) {
-                    tmp = individuoA.cromossomo[j];
-                    if (j + 1 < max) {
-                        j++;
-                    } else {
-                        j = 0;
-                    }
-                }
-                lst[i + 1] = tmp;
-            }
-            cout_pais++;
-
-        }
-        return lst;
     }
 
 }

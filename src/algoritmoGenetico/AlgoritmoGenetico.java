@@ -1,5 +1,7 @@
 package algoritmoGenetico;
 
+import java.util.Stack;
+
 public class AlgoritmoGenetico {
 
     public Individuo[] populacao;
@@ -18,29 +20,34 @@ public class AlgoritmoGenetico {
         }
     }
 
-    public Individuo getIndividuoMaisApto(Individuo individuos[]) {
-        return individuos[getIndiceMaisApto(individuos)];
-    }
-
-    public int getIndiceMaisApto(Individuo individuos[]) {
-        Double menorDistancia = 0.0, distanciaAuxiliar;
-        int indiceIndividuoMenorDistancia = -1, i, len = individuos.length;
+    public Individuo[] getIndividuoMaisAptos(int quantidade) {
         Individuo individuo;
+        Stack<Individuo> populacaoAux = new Stack<Individuo>();
+        for (int i = 0; i < populacao.length; i++) {
+            populacaoAux.push(populacao[i]);
+        }
 
-        for (i = 0; i < len; i++) {
-            individuo = individuos[i];
-            if (individuo == null)
-                continue;
-            if (!individuo.isGeneExists()) {
-                distanciaAuxiliar = individuo.getDistanciaPercurso(baseDados);
-                if (indiceIndividuoMenorDistancia == -1 || distanciaAuxiliar < menorDistancia) {
-                    indiceIndividuoMenorDistancia = i;
-                    menorDistancia = distanciaAuxiliar;
+        Stack<Individuo> populacaoOrdenada = new Stack<Individuo>();
+        while (populacaoAux.size() > 0) {
+            Double menorDistancia = Double.POSITIVE_INFINITY;
+            Individuo individuoMenorDistancia = populacaoAux.get(0);
+            for (int i = 0; i < populacaoAux.size(); i++) {
+                individuo = populacaoAux.get(i);
+                if (individuo.fitness < menorDistancia) {
+                    individuoMenorDistancia = individuo;
+                    menorDistancia = individuo.fitness;
                 }
             }
+            populacaoAux.remove(individuoMenorDistancia);
+            populacaoOrdenada.add(individuoMenorDistancia);
         }
-        assert indiceIndividuoMenorDistancia != -1;
-        return indiceIndividuoMenorDistancia;
+
+        Individuo[] novaPopulacao = new Individuo[quantidade];
+        for (int i = 0; (populacaoOrdenada.size() > 0) && (i < quantidade); i++) {
+            novaPopulacao[i] = populacaoOrdenada.firstElement();
+            populacaoOrdenada.remove(novaPopulacao[i]);
+        }
+        return novaPopulacao;
     }
 
     public Individuo[] torneio() {
@@ -54,20 +61,14 @@ public class AlgoritmoGenetico {
         }
 
         int indiceIndividuoRetorno;
-        indiceIndividuoRetorno = getIndiceMaisApto(individuos);
-        individuosRetorno[0] = populacao[indiceIndividuoRetorno];
-        individuos[indiceIndividuoRetorno] = null;
-
-        individuosRetorno[1] = getIndividuoMaisApto(individuos);
-
+        individuosRetorno = getIndividuoMaisAptos(2);
         return individuosRetorno;
-
     }
 
     public void geraProximaGeracao() {
         Individuo proximaPopulacao[] = new Individuo[quantidadePopulacaoInicial];
         int i;
-        proximaPopulacao[0] = getIndividuoMaisApto(populacao);
+        proximaPopulacao = getIndividuoMaisAptos(1);
         for (i = 1; i < quantidadePopulacaoInicial; i++) {
             proximaPopulacao[i] = new Individuo(torneio(), baseDados);
         }

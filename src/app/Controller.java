@@ -50,15 +50,15 @@ public class Controller {
     public void calculaMenorDistancia() {
         AlgoritmoGenetico algoritmoGenetico = new AlgoritmoGenetico(baseDados, Integer.valueOf(populacaoInicial.getText()));
         Individuo individuo;
-        int epocas = 0;
 
         if (algoritmoGenetico.populacao.length == 0) {
             showModal("Sem cidades cadastradas");
             return;
         }
 
+        int epocas = 0;
         while (true) {
-            individuo = algoritmoGenetico.getIndividuoMaisApto(algoritmoGenetico.populacao);
+            individuo = algoritmoGenetico.getIndividuoMaisAptos(1)[0];
             algoritmoGenetico.geraProximaGeracao();
             epocas++;
             if (epocas == Integer.valueOf(this.epocas.getText())) break;

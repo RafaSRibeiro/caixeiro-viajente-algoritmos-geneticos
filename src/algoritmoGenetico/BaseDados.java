@@ -22,8 +22,8 @@ public class BaseDados {
         addCidade("Gravatal");
         addCidade("Florianopolis");
         addCidade("São Martinho");
-        addCidade("Jaguaruna");
-        addCidade("Criciuma");
+//        addCidade("Jaguaruna");
+//        addCidade("Criciuma");
 
         // c1
         addDistancia("Tubarao", "Laguna", 10);
@@ -31,41 +31,41 @@ public class BaseDados {
         addDistancia("Tubarao", "Gravatal", 36);
         addDistancia("Tubarao", "Florianopolis", 21);
         addDistancia("Tubarao", "São Martinho", 52);
-        addDistancia("Tubarao", "Jaguaruna", 70);
-        addDistancia("Tubarao", "Criciuma", 27);
+//        addDistancia("Tubarao", "Jaguaruna", 70);
+//        addDistancia("Tubarao", "Criciuma", 27);
 
         // c2
         addDistancia("Laguna", "Braço do Norte", 20);
         addDistancia("Laguna", "Gravatal", 11);
         addDistancia("Laguna", "Florianopolis", 57);
         addDistancia("Laguna", "São Martinho", 89);
-        addDistancia("Laguna", "Jaguaruna", 45);
-        addDistancia("Laguna", "Criciuma", 104);
+//        addDistancia("Laguna", "Jaguaruna", 45);
+//        addDistancia("Laguna", "Criciuma", 104);
 
         // c3
         addDistancia("Braço do Norte", "Gravatal", 68);
         addDistancia("Braço do Norte", "Florianopolis", 82);
         addDistancia("Braço do Norte", "São Martinho", 31);
-        addDistancia("Braço do Norte", "Jaguaruna", 50);
-        addDistancia("Braço do Norte", "Criciuma", 39);
+//        addDistancia("Braço do Norte", "Jaguaruna", 50);
+//        addDistancia("Braço do Norte", "Criciuma", 39);
 
         // c4
         addDistancia("Gravatal", "Florianopolis", 44);
         addDistancia("Gravatal", "São Martinho", 12);
-        addDistancia("Gravatal", "Jaguaruna", 64);
-        addDistancia("Gravatal", "Criciuma", 93);
+//        addDistancia("Gravatal", "Jaguaruna", 64);
+//        addDistancia("Gravatal", "Criciuma", 93);
 
         // c5
         addDistancia("Florianopolis", "São Martinho", 53);
-        addDistancia("Florianopolis", "Jaguaruna", 12);
-        addDistancia("Florianopolis", "Criciuma", 84);
+//        addDistancia("Florianopolis", "Jaguaruna", 12);
+//        addDistancia("Florianopolis", "Criciuma", 84);
 
         // c6
-        addDistancia("São Martinho", "Jaguaruna", 48);
-        addDistancia("São Martinho", "Criciuma", 43);
+//        addDistancia("São Martinho", "Jaguaruna", 48);
+//        addDistancia("São Martinho", "Criciuma", 43);
 
         // c7
-        addDistancia("Jaguaruna", "Criciuma", 48);
+//        addDistancia("Jaguaruna", "Criciuma", 48);
 
     }
 
@@ -73,6 +73,7 @@ public class BaseDados {
         addCidade(cidadeInicial);
         addCidade(cidadeFinal);
         distancias.put(getIniciaisCidade(cidades.get(cidadeInicial), cidades.get(cidadeFinal)), distancia);
+        distancias.put(getIniciaisCidade(cidades.get(cidadeFinal), cidades.get(cidadeInicial)), distancia);
     }
 
     public void addCidade(String nome) {
@@ -93,17 +94,9 @@ public class BaseDados {
     }
 
     public Double getDistanciaByCromossomo(String cromossomo) {
-        Double t;
-        if (distancias.containsKey(cromossomo)) {
-            t = distancias.get(cromossomo);
-            assert (t != null);
-            return t;
-        } else {
-            String tmp = Utils.at(cromossomo, 1) + Utils.at(cromossomo, 0);
-            t = distancias.get(tmp);
-            assert (t != null);
-            return t;
-        }
+        Double distancia;
+        distancia = distancias.get(cromossomo);
+        return distancia;
     }
 
 }
