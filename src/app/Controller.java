@@ -78,7 +78,9 @@ public class Controller {
         }
         Individuo individuo = algoritmoGenetico.getIndividuoMaisAptos(1)[0];
         console.appendText("Menor Percurso: " + individuo.fitness + "\n");
-        console.appendText("Melhor Caminho: " + String.join(" ", individuo.cromossomo) + "\n");
+
+        String nomesCidade = algoritmoGenetico.baseDados.cromossomoToNomeCidade(individuo.cromossomo);
+        console.appendText("Melhor Caminho: " + nomesCidade + "\n");
     }
 
     @FXML

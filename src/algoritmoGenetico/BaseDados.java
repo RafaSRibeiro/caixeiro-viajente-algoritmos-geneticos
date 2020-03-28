@@ -141,4 +141,12 @@ public class BaseDados {
         return individuo;
     }
 
+    public String cromossomoToNomeCidade(String cromossomo[]) {
+        String nomesCidades = new String("");
+        for (int i = 0; i < cromossomo.length; i++) {
+            nomesCidades += " -> " + cidades.get(cromossomo[i]);
+        }
+        return nomesCidades;
+    }
+
 }
