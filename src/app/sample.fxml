@@ -100,7 +100,7 @@
                                           </Button>
                                        </children>
                                     </VBox>
-                                    <ListView fx:id="listView" layoutX="31.0" layoutY="237.0" prefHeight="478.0" prefWidth="438.0" />
+                                    <ListView fx:id="listViewDistancias" layoutX="31.0" layoutY="237.0" prefHeight="478.0" prefWidth="438.0" />
                                  </children>
                               </AnchorPane>
                         </content>

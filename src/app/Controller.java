@@ -42,7 +42,7 @@ public class Controller {
     TextArea console;
 
     @FXML
-    ListView<String> listView;
+    ListView<String> listViewDistancias;
 
     @FXML
     ListView<Cidade> listViewCidades;
@@ -56,7 +56,7 @@ public class Controller {
     @FXML
     public void newDistancia() {
         baseDados.addDistancia(cidadeInicialComboBox.getValue(), cidadeFinalComboBox.getValue(), Integer.valueOf(distancia.getText()));
-        updateListView();
+        updateListViewDistancias();
     }
 
     @FXML
@@ -102,9 +102,7 @@ public class Controller {
             updateCidadesView(entry.getValue());
         }
 
-        for (Map.Entry<String, Double> entry : baseDados.distancias.entrySet()) {
-            listView.getItems().add(entry.getKey() + " - " + entry.getValue());
-        }
+        updateListViewDistancias();
     }
 
     @FXML
@@ -112,10 +110,10 @@ public class Controller {
         console.clear();
     }
 
-    private void updateListView() {
-        listView.getItems().clear();
+    private void updateListViewDistancias() {
+        listViewDistancias.getItems().clear();
         for (Map.Entry<String, Double> entry : baseDados.distancias.entrySet()) {
-            listView.getItems().add(entry.getKey() + " - " + entry.getValue());
+            listViewDistancias.getItems().add(baseDados.cidades.get(entry.getKey().substring(0,1)).nome + " <-> " + baseDados.cidades.get(entry.getKey().substring(1,2)).nome  + " - " + entry.getValue());
         }
     }
 
