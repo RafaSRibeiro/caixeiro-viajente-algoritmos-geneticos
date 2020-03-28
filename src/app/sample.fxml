@@ -10,7 +10,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<GridPane alignment="center" hgap="10" prefHeight="579.0" prefWidth="875.0" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="804.0" prefWidth="1220.0" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -20,20 +20,20 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <BorderPane prefHeight="493.0" prefWidth="712.0">
+      <BorderPane prefHeight="776.0" prefWidth="1189.0">
          <top>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Problema do Caixeiro Viajante - Algoritmo Genético" textAlignment="CENTER" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
                <children>
-                  <TabPane prefHeight="478.0" prefWidth="402.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane prefHeight="761.0" prefWidth="1194.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="Cidades">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="728.0" prefWidth="488.0">
                                  <children>
-                                    <VBox prefHeight="95.0" prefWidth="345.0">
+                                    <VBox prefHeight="95.0" prefWidth="345.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                                        <children>
                                           <Label text="Cidade">
                                              <VBox.margin>
@@ -52,7 +52,7 @@
                                           </Button>
                                        </children>
                                     </VBox>
-                                    <ListView fx:id="listViewCidades" layoutX="11.0" layoutY="89.0" prefHeight="344.0" prefWidth="339.0" />
+                                    <ListView fx:id="listViewCidades" layoutX="26.0" layoutY="121.0" prefHeight="596.0" prefWidth="324.0" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -61,7 +61,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox prefHeight="157.0" prefWidth="322.0">
+                                    <VBox prefHeight="157.0" prefWidth="322.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cidade Inicial">
                                              <VBox.margin>
@@ -93,34 +93,68 @@
                                                 <Insets bottom="15.0" left="15.0" right="15.0" />
                                              </VBox.margin>
                                           </TextField>
-                                          <Button mnemonicParsing="false" onAction="#newDistancia" text="Cadastrar">
+                                          <Button mnemonicParsing="false" onAction="#newDistancia" text="nova Distancia">
                                              <VBox.margin>
                                                 <Insets left="15.0" right="15.0" />
                                              </VBox.margin>
                                           </Button>
                                        </children>
                                     </VBox>
-                                    <ListView fx:id="listView" layoutX="14.0" layoutY="202.0" prefHeight="231.0" prefWidth="321.0" />
+                                    <ListView fx:id="listView" layoutX="31.0" layoutY="237.0" prefHeight="478.0" prefWidth="438.0" />
                                  </children>
                               </AnchorPane>
                         </content>
                       </Tab>
+                        <Tab text="Calculo">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="478.0" prefWidth="395.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                                       <children>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Epocas" />
+                                                <TextField fx:id="epocas" prefHeight="25.0" prefWidth="287.0" text="50" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Populaçao Inicial">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                                <TextField fx:id="populacaoInicial" prefHeight="25.0" prefWidth="287.0" text="40" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cidade de Origem">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                                <ComboBox fx:id="cidadeOrigemComboBox" prefHeight="25.0" prefWidth="304.0" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" onAction="#calculaMenorDistancia" text="Calcula">
+                                                         <HBox.margin>
+                                                            <Insets bottom="15.0" right="15.0" top="15.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#geraDadosInciais" text="Gera Dados Iniciais">
+                                                         <HBox.margin>
+                                                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <TextArea fx:id="console" prefHeight="496.0" prefWidth="411.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
                     </tabs>
                   </TabPane>
-                  <VBox prefHeight="478.0" prefWidth="395.0">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Epocas" />
-                              <TextField fx:id="epocas" prefHeight="25.0" prefWidth="287.0" text="50" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Populaçao Inicial" />
-                              <TextField fx:id="populacaoInicial" prefHeight="25.0" prefWidth="287.0" text="40" />
-                           </children>
-                        </VBox>
-                        <Button mnemonicParsing="false" onAction="#calculaMenorDistancia" text="Calcula" />
-                        <TextArea fx:id="console" prefHeight="496.0" prefWidth="411.0" />
-                     </children>
-                  </VBox>
                </children>
             </HBox>
          </center>

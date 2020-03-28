@@ -15,7 +15,7 @@ public class Crossover {
     public String[] run(Individuo individuoA, Individuo individuoB) {
         this.individuoA = individuoA;
         this.individuoB = individuoB;
-        cromossomo = new String[individuoA.tamanhoGenes];
+        cromossomo = new String[individuoA.cromossomo.length];
         int i;
         String cromossomoAuxiliar;
         for (i = 0; i < cromossomo.length; i += 2) {

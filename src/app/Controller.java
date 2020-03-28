@@ -24,6 +24,9 @@ public class Controller {
     ComboBox<Cidade> cidadeFinalComboBox;
 
     @FXML
+    ComboBox<Cidade> cidadeOrigemComboBox;
+
+    @FXML
     TextField distancia;
 
     @FXML
@@ -44,30 +47,36 @@ public class Controller {
     @FXML
     ListView<Cidade> listViewCidades;
 
+    AlgoritmoGenetico algoritmoGenetico;
+
     public Controller() {
         baseDados = new BaseDados();
     }
 
     @FXML
     public void newDistancia() {
-        baseDados.addDistancia(cidadeInicialComboBox.getId(), cidadeFinalComboBox.getId(), Integer.valueOf(distancia.getText()));
+        baseDados.addDistancia(cidadeInicialComboBox.getValue(), cidadeFinalComboBox.getValue(), Integer.valueOf(distancia.getText()));
         updateListView();
     }
 
     @FXML
     public void calculaMenorDistancia() {
-        AlgoritmoGenetico algoritmoGenetico = new AlgoritmoGenetico(baseDados, Integer.valueOf(populacaoInicial.getText()));
-        Individuo individuo;
-
-        if (!algoritmoGenetico.isPossuiPopulacao()) {
-            showModal("Sem cidades cadastradas");
+        if (cidadeOrigemComboBox.getValue() == null) {
+            showModal("Selecione a Origem");
             return;
         }
+
+        if (baseDados.distancias.size() == 0) {
+            showModal("Sem distâncias cadastradas");
+            return;
+        }
+
+        algoritmoGenetico = new AlgoritmoGenetico(baseDados, Integer.valueOf(populacaoInicial.getText()), cidadeOrigemComboBox.getValue());
 
         for (int i = 0; i < Integer.valueOf(this.epocas.getText()); i++) {
             algoritmoGenetico.geraProximaGeracao();
         }
-        individuo = algoritmoGenetico.getIndividuoMaisAptos(1)[0];
+        Individuo individuo = algoritmoGenetico.getIndividuoMaisAptos(1)[0];
         console.appendText("Menor Percurso: " + individuo.fitness + "\n");
         console.appendText("Melhor Caminho: " + String.join(" ", individuo.cromossomo) + "\n");
     }
@@ -76,11 +85,23 @@ public class Controller {
     public void addCidade() {
         if (baseDados.findCidadeByName(nomeCidade.getText()) == null) {
             Cidade cidade = baseDados.addCidade(nomeCidade.getText());
-            cidadeInicialComboBox.getItems().add(cidade);
-            cidadeFinalComboBox.getItems().add(cidade);
-            listViewCidades.getItems().add(cidade);
+            updateCidadesView(cidade);
         } else {
             showModal("Cidade já existe.");
+        }
+    }
+
+    @FXML
+    public void geraDadosInciais() {
+        baseDados.cidades.clear();
+        baseDados.distancias.clear();
+        baseDados.geraDadosIniciais();
+        for (Map.Entry<String, Cidade> entry : baseDados.cidades.entrySet()) {
+            updateCidadesView(entry.getValue());
+        }
+
+        for (Map.Entry<String, Double> entry : baseDados.distancias.entrySet()) {
+            listView.getItems().add(entry.getKey() + " - " + entry.getValue());
         }
     }
 
@@ -93,5 +114,12 @@ public class Controller {
 
     public void showModal(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem);
+    }
+
+    private void updateCidadesView(Cidade cidade) {
+        cidadeInicialComboBox.getItems().add(cidade);
+        cidadeFinalComboBox.getItems().add(cidade);
+        cidadeOrigemComboBox.getItems().add(cidade);
+        listViewCidades.getItems().add(cidade);
     }
 }

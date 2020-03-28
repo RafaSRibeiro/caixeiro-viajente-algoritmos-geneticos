@@ -1,5 +1,7 @@
 package algoritmoGenetico;
 
+import model.Cidade;
+
 import java.util.Stack;
 
 public class AlgoritmoGenetico {
@@ -8,14 +10,14 @@ public class AlgoritmoGenetico {
 
     public BaseDados baseDados;
 
-    int quantidadePopulacao;
+    public Mutacao mutacao;
 
-    public AlgoritmoGenetico(BaseDados baseDados, int quantidadePopulacaoInicial) {
-        this.quantidadePopulacao = quantidadePopulacaoInicial;
+    public AlgoritmoGenetico(BaseDados baseDados, int quantidadePopulacaoInicial, Cidade cidadeOrigem) {
         populacao = new Individuo[quantidadePopulacaoInicial];
         this.baseDados = baseDados;
+        this.mutacao = new Mutacao(baseDados);
         for (int i = 0; i < quantidadePopulacaoInicial; i++) {
-            populacao[i] = new Individuo(baseDados);
+            populacao[i] = baseDados.geraIndividuo(cidadeOrigem);
         }
     }
 
@@ -50,17 +52,14 @@ public class AlgoritmoGenetico {
     }
 
     public void geraProximaGeracao() {
-        Individuo proximaPopulacao[] = new Individuo[quantidadePopulacao];
+        Individuo proximaPopulacao[] = new Individuo[populacao.length];
 
-        Individuo populacaoMaisApta[] = getIndividuoMaisAptos(quantidadePopulacao / 2);
+        Individuo populacaoMaisApta[] = getIndividuoMaisAptos(populacao.length / 2);
         System.arraycopy(populacaoMaisApta, 0, proximaPopulacao, 0, populacaoMaisApta.length);
-        Individuo populacaoMutacao[] = Mutacao.mutacao(baseDados, populacaoMaisApta);
+        Individuo populacaoMutacao[] = mutacao.run(populacaoMaisApta);
         System.arraycopy(populacaoMutacao, 0, proximaPopulacao, populacaoMaisApta.length, populacaoMutacao.length);
 
         populacao = proximaPopulacao;
     }
 
-    public boolean isPossuiPopulacao() {
-        return populacao.length > 0;
-    }
 }
