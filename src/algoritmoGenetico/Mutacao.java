@@ -33,8 +33,6 @@ public class Mutacao {
         String tmp = novoCromossomo[local1];
         novoCromossomo[local1] = novoCromossomo[local2];
         novoCromossomo[local2] = tmp;
-        if (novoCromossomo[0] != novoCromossomo[individuo.cromossomo.length - 1])
-            System.out.println(novoCromossomo);
         return baseDados.newIndividuo(novoCromossomo);
     }
 

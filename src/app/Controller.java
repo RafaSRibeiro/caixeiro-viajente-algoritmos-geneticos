@@ -105,6 +105,11 @@ public class Controller {
         }
     }
 
+    @FXML
+    public void limparConsole() {
+        console.clear();
+    }
+
     private void updateListView() {
         listView.getItems().clear();
         for (Map.Entry<String, Double> entry : baseDados.distancias.entrySet()) {
