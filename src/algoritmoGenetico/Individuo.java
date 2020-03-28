@@ -1,7 +1,5 @@
 package algoritmoGenetico;
 
-import java.util.Arrays;
-
 public class Individuo {
 
     public String cromossomo[];
@@ -12,16 +10,13 @@ public class Individuo {
 
     public Individuo(BaseDados baseDados) {
         int quantidadeCidades = baseDados.quantidadeCidades;
-        cromossomo = new String[quantidadeCidades];
-        tamanhoGenes = quantidadeCidades;
-        int i, max = quantidadeCidades;
+        tamanhoGenes = quantidadeCidades + 1;
+        cromossomo = new String[tamanhoGenes];
 
-        int randomicoMaximo = baseDados.quantidadeCidades;
-        String gene;
-        for (i = 0; i < max; i++) {
-            gene = Utils.at(baseDados.possiveis, Utils.rand(randomicoMaximo));
+        for (int i = 0; i < tamanhoGenes; i++) {
+            String gene = Utils.at(baseDados.possiveis, Utils.rand(quantidadeCidades));
             while (Utils.contain(cromossomo, gene)) {
-                gene = Utils.at(baseDados.possiveis, Utils.rand(randomicoMaximo));
+                gene = Utils.at(baseDados.possiveis, Utils.rand(quantidadeCidades));
             }
             cromossomo[i] = gene;
         }

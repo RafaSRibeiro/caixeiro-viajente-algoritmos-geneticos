@@ -8,14 +8,13 @@ public class AlgoritmoGenetico {
 
     public BaseDados baseDados;
 
-    int quantidadePopulacaoInicial = 40;
+    int quantidadePopulacao;
 
     public AlgoritmoGenetico(BaseDados baseDados, int quantidadePopulacaoInicial) {
-        this.quantidadePopulacaoInicial = quantidadePopulacaoInicial;
+        this.quantidadePopulacao = quantidadePopulacaoInicial;
         populacao = new Individuo[quantidadePopulacaoInicial];
         this.baseDados = baseDados;
-        int i;
-        for (i = 0; i < quantidadePopulacaoInicial; i++) {
+        for (int i = 0; i < quantidadePopulacaoInicial; i++) {
             populacao[i] = new Individuo(baseDados);
         }
     }
@@ -51,14 +50,17 @@ public class AlgoritmoGenetico {
     }
 
     public void geraProximaGeracao() {
-        Individuo proximaPopulacao[] = new Individuo[quantidadePopulacaoInicial];
-        Individuo populacaoMaisApta[] = getIndividuoMaisAptos(quantidadePopulacaoInicial / 2);
-        System.arraycopy(populacaoMaisApta, 0, proximaPopulacao, 0, populacaoMaisApta.length);
+        Individuo proximaPopulacao[] = new Individuo[quantidadePopulacao];
 
+        Individuo populacaoMaisApta[] = getIndividuoMaisAptos(quantidadePopulacao / 2);
+        System.arraycopy(populacaoMaisApta, 0, proximaPopulacao, 0, populacaoMaisApta.length);
         Individuo populacaoMutacao[] = Mutacao.mutacao(baseDados, populacaoMaisApta);
         System.arraycopy(populacaoMutacao, 0, proximaPopulacao, populacaoMaisApta.length, populacaoMutacao.length);
+
         populacao = proximaPopulacao;
     }
 
-
+    public boolean isPossuiPopulacao() {
+        return populacao.length > 0;
+    }
 }

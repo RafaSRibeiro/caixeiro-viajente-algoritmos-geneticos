@@ -4,9 +4,11 @@ import algoritmoGenetico.AlgoritmoGenetico;
 import algoritmoGenetico.BaseDados;
 import algoritmoGenetico.Individuo;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import model.Cidade;
 
 import javax.swing.*;
 import java.util.Map;
@@ -16,10 +18,10 @@ public class Controller {
     private BaseDados baseDados;
 
     @FXML
-    TextField cidadeInicial;
+    ComboBox<Cidade> cidadeInicialComboBox;
 
     @FXML
-    TextField cidadeFinal;
+    ComboBox<Cidade> cidadeFinalComboBox;
 
     @FXML
     TextField distancia;
@@ -31,10 +33,16 @@ public class Controller {
     TextField populacaoInicial;
 
     @FXML
+    TextField nomeCidade;
+
+    @FXML
     TextArea console;
 
     @FXML
     ListView<String> listView;
+
+    @FXML
+    ListView<Cidade> listViewCidades;
 
     public Controller() {
         baseDados = new BaseDados();
@@ -42,7 +50,7 @@ public class Controller {
 
     @FXML
     public void newDistancia() {
-        baseDados.addDistancia(cidadeInicial.getText(), cidadeFinal.getText(), Integer.valueOf(distancia.getText()));
+        baseDados.addDistancia(cidadeInicialComboBox.getId(), cidadeFinalComboBox.getId(), Integer.valueOf(distancia.getText()));
         updateListView();
     }
 
@@ -51,20 +59,29 @@ public class Controller {
         AlgoritmoGenetico algoritmoGenetico = new AlgoritmoGenetico(baseDados, Integer.valueOf(populacaoInicial.getText()));
         Individuo individuo;
 
-        if (algoritmoGenetico.populacao.length == 0) {
+        if (!algoritmoGenetico.isPossuiPopulacao()) {
             showModal("Sem cidades cadastradas");
             return;
         }
 
-        int epocas = 0;
-        while (true) {
+        for (int i = 0; i < Integer.valueOf(this.epocas.getText()); i++) {
             algoritmoGenetico.geraProximaGeracao();
-            epocas++;
-            if (epocas == Integer.valueOf(this.epocas.getText())) break;
         }
         individuo = algoritmoGenetico.getIndividuoMaisAptos(1)[0];
         console.appendText("Menor Percurso: " + individuo.fitness + "\n");
         console.appendText("Melhor Caminho: " + String.join(" ", individuo.cromossomo) + "\n");
+    }
+
+    @FXML
+    public void addCidade() {
+        if (baseDados.findCidadeByName(nomeCidade.getText()) == null) {
+            Cidade cidade = baseDados.addCidade(nomeCidade.getText());
+            cidadeInicialComboBox.getItems().add(cidade);
+            cidadeFinalComboBox.getItems().add(cidade);
+            listViewCidades.getItems().add(cidade);
+        } else {
+            showModal("Cidade já existe.");
+        }
     }
 
     private void updateListView() {

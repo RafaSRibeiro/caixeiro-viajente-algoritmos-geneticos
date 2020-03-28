@@ -2,11 +2,16 @@ package model;
 
 public class Cidade {
 
-    public String nome;
-    public String sigla;
+    public String id;
 
-    public Cidade(String nome_) {
-        nome = nome_;
-        sigla = nome.toUpperCase().substring(0, 1);
+    public String nome;
+
+    public Cidade(String _id, String _nome) {
+        id = _id;
+        nome = _nome;
+    }
+
+    public String toString() {
+        return this.nome;
     }
 }
