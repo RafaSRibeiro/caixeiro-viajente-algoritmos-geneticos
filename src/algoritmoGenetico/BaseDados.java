@@ -24,6 +24,7 @@ public class BaseDados {
         Cidade cidade6 = addCidade("São Martinho");
         Cidade cidade7 = addCidade("Jaguaruna");
         Cidade cidade8 = addCidade("Criciuma");
+        Cidade cidade9 = addCidade("São Martinho");
 
         // c1
         addDistancia(cidade1, cidade2, 10);
@@ -33,6 +34,7 @@ public class BaseDados {
         addDistancia(cidade1, cidade6, 52);
         addDistancia(cidade1, cidade7, 70);
         addDistancia(cidade1, cidade8, 27);
+        addDistancia(cidade1, cidade9, 60);
 
         // c2
         addDistancia(cidade2, cidade3, 20);
@@ -40,7 +42,8 @@ public class BaseDados {
         addDistancia(cidade2, cidade5, 57);
         addDistancia(cidade2, cidade6, 89);
         addDistancia(cidade2, cidade7, 45);
-        addDistancia(cidade2, cidade8, 104);
+        addDistancia(cidade2, cidade8, 100);
+        addDistancia(cidade2, cidade9, 104);
 
         // c3
         addDistancia(cidade3, cidade4, 68);
@@ -48,24 +51,32 @@ public class BaseDados {
         addDistancia(cidade3, cidade6, 31);
         addDistancia(cidade3, cidade7, 50);
         addDistancia(cidade3, cidade8, 39);
+        addDistancia(cidade3, cidade9, 98);
 
         // c4
         addDistancia(cidade4, cidade5, 44);
         addDistancia(cidade4, cidade6, 12);
         addDistancia(cidade4, cidade7, 64);
         addDistancia(cidade4, cidade8, 93);
+        addDistancia(cidade4, cidade9, 152);
 
         // c5
         addDistancia(cidade5, cidade6, 53);
         addDistancia(cidade5, cidade7, 12);
         addDistancia(cidade5, cidade8, 84);
+        addDistancia(cidade5, cidade9, 100);
 
         // c6
         addDistancia(cidade6, cidade7, 48);
         addDistancia(cidade6, cidade8, 43);
+        addDistancia(cidade6, cidade9, 50);
 
         // c7
         addDistancia(cidade7, cidade8, 48);
+        addDistancia(cidade7, cidade9, 55);
+
+        // c8
+        addDistancia(cidade8, cidade9, 55);
 
     }
 
