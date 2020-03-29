@@ -57,7 +57,7 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                      <Tab text="Distancias">
+                      <Tab text="Tempos">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -83,24 +83,24 @@
                                                 <Insets bottom="15.0" left="15.0" right="15.0" />
                                              </VBox.margin>
                                           </ComboBox>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distancia">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tempo">
                                              <VBox.margin>
                                                 <Insets left="15.0" right="15.0" />
                                              </VBox.margin>
                                           </Text>
-                                          <TextField fx:id="distancia" prefHeight="25.0" prefWidth="287.0">
+                                          <TextField fx:id="tempo" prefHeight="25.0" prefWidth="287.0">
                                              <VBox.margin>
                                                 <Insets bottom="15.0" left="15.0" right="15.0" />
                                              </VBox.margin>
                                           </TextField>
-                                          <Button mnemonicParsing="false" onAction="#newDistancia" text="nova Distancia">
+                                          <Button mnemonicParsing="false" onAction="#newTempo" text="Novo Tempo">
                                              <VBox.margin>
                                                 <Insets left="15.0" right="15.0" />
                                              </VBox.margin>
                                           </Button>
                                        </children>
                                     </VBox>
-                                    <ListView fx:id="listViewDistancias" layoutX="31.0" layoutY="237.0" prefHeight="478.0" prefWidth="438.0" />
+                                    <ListView fx:id="listViewTempos" layoutX="31.0" layoutY="237.0" prefHeight="478.0" prefWidth="438.0" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -113,7 +113,10 @@
                                        <children>
                                           <VBox prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Epocas" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Epocas">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin></Text>
                                                 <TextField fx:id="epocas" prefHeight="25.0" prefWidth="64.0" text="50" />
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Populaçao Inicial">
                                                    <VBox.margin>
@@ -121,6 +124,22 @@
                                                    </VBox.margin>
                                                 </Text>
                                                 <TextField fx:id="populacaoInicial" prefHeight="25.0" prefWidth="287.0" text="40" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Taxa de Convergencia">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                                <TextField fx:id="taxaConvergencia" prefHeight="25.0" prefWidth="287.0" text="5" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Percentual de mutaçao">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                                <Slider fx:id="percentualMutação" majorTickUnit="10.0" min="1.0" minorTickCount="9" prefHeight="16.0" prefWidth="1096.0" showTickLabels="true" showTickMarks="true" value="50.0">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </Slider>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cidade de Origem">
                                                    <VBox.margin>
                                                       <Insets top="10.0" />
@@ -129,7 +148,7 @@
                                                 <ComboBox fx:id="cidadeOrigemComboBox" prefHeight="25.0" prefWidth="304.0" />
                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button mnemonicParsing="false" onAction="#calculaMenorDistancia" text="Calcula">
+                                                      <Button mnemonicParsing="false" onAction="#calculaMenorTempo" text="Calcula">
                                                          <HBox.margin>
                                                             <Insets bottom="15.0" right="15.0" top="15.0" />
                                                          </HBox.margin>

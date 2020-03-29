@@ -4,10 +4,7 @@ import algoritmoGenetico.AlgoritmoGenetico;
 import algoritmoGenetico.BaseDados;
 import algoritmoGenetico.Individuo;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.Cidade;
 
 import javax.swing.*;
@@ -27,7 +24,7 @@ public class Controller {
     ComboBox<Cidade> cidadeOrigemComboBox;
 
     @FXML
-    TextField distancia;
+    TextField tempo;
 
     @FXML
     TextField epocas;
@@ -36,13 +33,19 @@ public class Controller {
     TextField populacaoInicial;
 
     @FXML
+    TextField taxaConvergencia;
+
+    @FXML
+    Slider percentualMutação;
+
+    @FXML
     TextField nomeCidade;
 
     @FXML
     TextArea console;
 
     @FXML
-    ListView<String> listViewDistancias;
+    ListView<String> listViewTempos;
 
     @FXML
     ListView<Cidade> listViewCidades;
@@ -54,29 +57,32 @@ public class Controller {
     }
 
     @FXML
-    public void newDistancia() {
-        baseDados.addDistancia(cidadeInicialComboBox.getValue(), cidadeFinalComboBox.getValue(), Integer.valueOf(distancia.getText()));
-        updateListViewDistancias();
+    public void newTempo() {
+        baseDados.addTempo(cidadeInicialComboBox.getValue(), cidadeFinalComboBox.getValue(), Integer.valueOf(tempo.getText()));
+        updateListViewTempos();
     }
 
     @FXML
-    public void calculaMenorDistancia() {
+    public void calculaMenorTempo() {
         if (cidadeOrigemComboBox.getValue() == null) {
             showModal("Selecione a Origem");
             return;
         }
 
-        if (baseDados.distancias.size() == 0) {
-            showModal("Sem distâncias cadastradas");
+        if (baseDados.tempos.size() == 0) {
+            showModal("Sem Tempos cadastradas");
             return;
         }
 
-        algoritmoGenetico = new AlgoritmoGenetico(baseDados, Integer.valueOf(populacaoInicial.getText()), cidadeOrigemComboBox.getValue());
+        algoritmoGenetico = new AlgoritmoGenetico(
+                baseDados,
+                Integer.valueOf(populacaoInicial.getText()),
+                cidadeOrigemComboBox.getValue(),
+                Integer.valueOf(taxaConvergencia.getText()),
+                Double.valueOf(percentualMutação.getValue()));
 
-        for (int i = 0; i < Integer.valueOf(this.epocas.getText()); i++) {
-            algoritmoGenetico.geraProximaGeracao();
-        }
-        Individuo individuo = algoritmoGenetico.getIndividuoMaisAptos(1)[0];
+        algoritmoGenetico.run(Integer.valueOf(this.epocas.getText()));
+        Individuo individuo = algoritmoGenetico.getIndividuoMaisAptos();
         console.appendText("Menor Percurso: " + individuo.fitness + "\n");
 
         String nomesCidade = algoritmoGenetico.baseDados.cromossomoToNomeCidade(individuo.cromossomo);
@@ -96,13 +102,13 @@ public class Controller {
     @FXML
     public void geraDadosInciais() {
         baseDados.cidades.clear();
-        baseDados.distancias.clear();
+        baseDados.tempos.clear();
         baseDados.geraDadosIniciais();
         for (Map.Entry<String, Cidade> entry : baseDados.cidades.entrySet()) {
             updateCidadesView(entry.getValue());
         }
 
-        updateListViewDistancias();
+        updateListViewTempos();
     }
 
     @FXML
@@ -110,10 +116,10 @@ public class Controller {
         console.clear();
     }
 
-    private void updateListViewDistancias() {
-        listViewDistancias.getItems().clear();
-        for (Map.Entry<String, Double> entry : baseDados.distancias.entrySet()) {
-            listViewDistancias.getItems().add(baseDados.cidades.get(entry.getKey().substring(0,1)).nome + " <-> " + baseDados.cidades.get(entry.getKey().substring(1,2)).nome  + " - " + entry.getValue());
+    private void updateListViewTempos() {
+        listViewTempos.getItems().clear();
+        for (Map.Entry<String, Double> entry : baseDados.tempos.entrySet()) {
+            listViewTempos.getItems().add(baseDados.cidades.get(entry.getKey().substring(0,1)).nome + " <-> " + baseDados.cidades.get(entry.getKey().substring(1,2)).nome  + " - " + entry.getValue());
         }
     }
 
