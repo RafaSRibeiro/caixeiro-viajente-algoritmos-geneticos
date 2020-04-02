@@ -3,6 +3,7 @@ package app;
 import algoritmoGenetico.AlgoritmoGenetico;
 import algoritmoGenetico.BaseDados;
 import algoritmoGenetico.Individuo;
+import algoritmoGenetico.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Cidade;
@@ -58,6 +59,10 @@ public class Controller {
 
     @FXML
     public void newTempo() {
+        if (cidadeInicialComboBox.getValue() == cidadeFinalComboBox.getValue()) {
+            showModal("A Cidade inicial dever ser diferente da final.");
+            return;
+        }
         baseDados.addTempo(cidadeInicialComboBox.getValue(), cidadeFinalComboBox.getValue(), Integer.valueOf(tempo.getText()));
         updateListViewTempos();
     }
@@ -71,6 +76,11 @@ public class Controller {
 
         if (baseDados.tempos.size() == 0) {
             showModal("Sem Tempos cadastradas");
+            return;
+        }
+
+        if (baseDados.cidades.size() < BaseDados.MIN_CIDADES) {
+            showModal("É preciso cadastrar no mínimo " + BaseDados.MIN_CIDADES + " cidades.");
             return;
         }
 
@@ -91,6 +101,10 @@ public class Controller {
 
     @FXML
     public void addCidade() {
+        if (baseDados.cidades.size() == BaseDados.MAX_CIDADES) {
+            showModal("Número máximo de cidades cadastrada.");
+            return;
+        }
         if (baseDados.findCidadeByName(nomeCidade.getText()) == null) {
             Cidade cidade = baseDados.addCidade(nomeCidade.getText());
             updateCidadesView(cidade);
@@ -117,9 +131,26 @@ public class Controller {
     }
 
     private void updateListViewTempos() {
+        double[][] matriz = baseDados.matrizTempos();
+
+        String linha;
         listViewTempos.getItems().clear();
-        for (Map.Entry<String, Double> entry : baseDados.tempos.entrySet()) {
-            listViewTempos.getItems().add(baseDados.cidades.get(entry.getKey().substring(0,1)).nome + " <-> " + baseDados.cidades.get(entry.getKey().substring(1,2)).nome  + " - " + entry.getValue());
+
+        linha = " |" + Utils.alinha(" ", "E", baseDados.tamanhoColuna);
+        for (int i = 0; i < baseDados.cidades.size(); i++) {
+            linha = linha + " |" + Utils.alinha(baseDados.cidades.get(String.valueOf(i)).nome, "E", baseDados.tamanhoColuna);
+        }
+        listViewTempos.getItems().add(linha);
+
+        for (int i = 0; i < baseDados.cidades.size(); i++) {
+            linha = " |" + Utils.alinha(baseDados.cidades.get(String.valueOf(i)).nome, "E", baseDados.tamanhoColuna);
+            for (int j = 0; j < baseDados.cidades.size(); j++) {
+                if (matriz[i][j] == Double.MAX_VALUE)
+                    linha = linha + " |" + Utils.alinha("Infinito", "D", baseDados.tamanhoColuna);
+                else
+                    linha = linha + " |" + Utils.alinha(String.valueOf(matriz[i][j]), "D", baseDados.tamanhoColuna);
+            }
+            listViewTempos.getItems().add(linha);
         }
     }
 

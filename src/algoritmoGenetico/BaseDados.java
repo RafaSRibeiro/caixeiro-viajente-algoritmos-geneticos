@@ -7,6 +7,10 @@ import java.util.Map;
 
 public class BaseDados {
 
+    public static final int MIN_CIDADES = 3;
+
+    public static final int MAX_CIDADES = 10;
+
     public HashMap<String, Double> tempos = new HashMap<String, Double>();
 
     public HashMap<String, Cidade> cidades = new HashMap<String, Cidade>();
@@ -14,6 +18,8 @@ public class BaseDados {
     String possiveis = new String("");
 
     int quantidadeCidades;
+
+    public int tamanhoColuna = 0;
 
     public void geraDadosIniciais() {
         Cidade cidade1 = addCidade("Tubarao");
@@ -95,7 +101,8 @@ public class BaseDados {
         for (Map.Entry<String, Cidade> entry : cidades.entrySet()) {
             possiveis += entry.getValue().id;
         }
-
+        if (tamanhoColuna < cidade.nome.length())
+            tamanhoColuna = cidade.nome.length();
         return cidade;
     }
 
@@ -113,7 +120,7 @@ public class BaseDados {
 
     public Double getTempoByCromossomo(String cromossomo) {
         Double tempo;
-        tempo = tempos.get(cromossomo);
+        tempo = tempos.get(cromossomo) == null ? Double.MAX_VALUE : tempos.get(cromossomo);
         return tempo;
     }
 
@@ -160,6 +167,16 @@ public class BaseDados {
             nomesCidades += " -> " + cidades.get(cromossomo[i]);
         }
         return nomesCidades;
+    }
+
+    public double[][] matrizTempos() {
+        double[][] matriz = new double[cidades.size()][cidades.size()];
+        for (int i = 0; i < cidades.size(); i++) {
+            for (int j = 0; j < cidades.size(); j++) {
+                matriz[i][j] = tempos.get("" +i + j) == null ? Double.MAX_VALUE : tempos.get("" +i + j);
+            }
+        }
+        return matriz;
     }
 
 }

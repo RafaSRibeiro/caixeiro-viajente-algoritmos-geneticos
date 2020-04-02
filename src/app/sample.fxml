@@ -100,7 +100,7 @@
                                           </Button>
                                        </children>
                                     </VBox>
-                                    <ListView fx:id="listViewTempos" layoutX="31.0" layoutY="237.0" prefHeight="478.0" prefWidth="438.0" />
+                                    <ListView fx:id="listViewTempos" layoutX="31.0" layoutY="237.0" prefHeight="478.0" prefWidth="1130.0" stylesheets="@style.css" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -153,7 +153,7 @@
                                                             <Insets bottom="15.0" right="15.0" top="15.0" />
                                                          </HBox.margin>
                                                       </Button>
-                                                      <Button mnemonicParsing="false" onAction="#geraDadosInciais" text="Gera Dados Iniciais">
+                                                      <Button mnemonicParsing="false" onAction="#geraDadosInciais" text="Gera Dados Iniciais" textAlignment="CENTER" textFill="#2a0980">
                                                          <HBox.margin>
                                                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                                          </HBox.margin>

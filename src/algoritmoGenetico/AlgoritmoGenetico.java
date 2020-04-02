@@ -65,7 +65,7 @@ public class AlgoritmoGenetico {
 
         Stack<Individuo> populacaoOrdenada = new Stack<Individuo>();
         while (populacaoAux.size() > 0) {
-            Double menorTempo = Double.POSITIVE_INFINITY;
+            Double menorTempo = Double.MAX_VALUE;
             Individuo individuoMenorMenor = populacaoAux.get(0);
             for (int i = 0; i < populacaoAux.size(); i++) {
                 individuo = populacaoAux.get(i);
